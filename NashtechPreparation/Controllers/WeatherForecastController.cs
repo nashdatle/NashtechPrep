@@ -29,5 +29,37 @@ namespace NashtechPreparation.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("/Summaries")]
+        public IEnumerable<string> GetSummaries()
+        {
+            return Summaries.ToList();
+        }
+
+        [HttpGet("/Summary/{id}")]
+        public string GetSummaries(int id)
+        {
+            try
+            {
+                return Summaries.GetValue(id).ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpPost("/Add")]
+        public IActionResult AddWeatherForecast(WeatherForecast weatherForecast)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return BadRequest(false);
+            }
+        }
     }
 }
